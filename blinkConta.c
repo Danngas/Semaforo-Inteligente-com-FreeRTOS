@@ -181,7 +181,7 @@ void TaskSemaforoMotorista()
             if (estado_cor_atual == COR_VERDE)
             {
                 // Estado VERDE (10 segundos)
-               
+
                 gpio_put(PIN_LED_GREEN, 1);
                 gpio_put(PIN_LED_RED, 0);
                 gpio_put(PIN_LED_BLUE, 0);
@@ -336,7 +336,7 @@ void TaskDisplaySemaforo()
         if (modo_noturno)
         {
             // Modo Noturno: Exibe mensagem no display
-            
+
             ssd1306_fill(&ssd, false);
             ssd1306_draw_string(&ssd, "MODO NOTURNO", 30, 20);
             ssd1306_send_data(&ssd);
@@ -344,7 +344,10 @@ void TaskDisplaySemaforo()
             for (int i = 0; i < 5; i++)
             {
                 if (!modo_noturno)
+                {
                     i = 999;
+                }
+
                 vTaskDelay(pdMS_TO_TICKS(100));
             }
         }
@@ -352,7 +355,7 @@ void TaskDisplaySemaforo()
         if (!modo_noturno && (estado_cor_atual == COR_AMARELO))
         {
             // Estado AMARELO no display
-           
+
             ssd1306_fill(&ssd, false);
 
             // Desenha o semáforo
@@ -373,8 +376,11 @@ void TaskDisplaySemaforo()
 
             for (int i = 1; i <= 40; i++)
             {
-                if (modo_noturno)
+                if (modo_noturno || (estado_cor_atual == !COR_AMARELO))
+                {
                     i = 999;
+                }
+
                 if (i == 40)
                 {
                     vTaskDelay(pdMS_TO_TICKS(100 - ATRASO_MS));
@@ -389,7 +395,7 @@ void TaskDisplaySemaforo()
         if (!modo_noturno && (estado_cor_atual == COR_VERMELHO))
         {
             // Estado VERMELHO no display
-          
+
             ssd1306_fill(&ssd, false);
             ssd1306_rect(&ssd, 3, 3, 123, 60, true, false); // Moldura
 
@@ -408,8 +414,11 @@ void TaskDisplaySemaforo()
 
             for (int i = 1; i <= 100; i++)
             {
-                if (modo_noturno)
+                if (modo_noturno || (estado_cor_atual == !COR_VERMELHO))
+                {
                     i = 999;
+                }
+
                 if (i == 100)
                 {
                     vTaskDelay(pdMS_TO_TICKS(100 - ATRASO_MS));
@@ -424,7 +433,7 @@ void TaskDisplaySemaforo()
         if (!modo_noturno && (estado_cor_atual == COR_VERDE))
         {
             // Estado VERDE no display
-                      ssd1306_fill(&ssd, false);
+            ssd1306_fill(&ssd, false);
             ssd1306_rect(&ssd, 3, 3, 123, 60, true, false); // Moldura
 
             // LEDs do semáforo (apenas verde aceso)
@@ -442,7 +451,7 @@ void TaskDisplaySemaforo()
 
             for (int i = 1; i <= 100; i++)
             {
-                if (modo_noturno)
+                if (modo_noturno  || (estado_cor_atual == !COR_VERDE))
                     i = 999;
                 if (i == 100)
                 {
