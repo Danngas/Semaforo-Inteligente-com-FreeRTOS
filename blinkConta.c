@@ -338,7 +338,8 @@ void TaskDisplaySemaforo()
             // Modo Noturno: Exibe mensagem no display
 
             ssd1306_fill(&ssd, false);
-            ssd1306_draw_string(&ssd, "MODO NOTURNO", 30, 20);
+            ssd1306_draw_string(&ssd, "MODO NOTURNO", 15, 20);
+            ssd1306_rect(&ssd, 3, 3, 123, 60, true, false); // Moldura
             ssd1306_send_data(&ssd);
 
             for (int i = 0; i < 5; i++)
