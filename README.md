@@ -1,6 +1,3 @@
-<div align="center">
-  <img src="EmbarcaTech_logo_Azul-1030x428.png" alt="EmbarcaTech Logo" width="600"/>
-</div>
 
 # 🚦Semáforo Inteligente com Modo Noturno e Acessibilidade
 
